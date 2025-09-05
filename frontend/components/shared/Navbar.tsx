@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import styles from "./NavBar.module.scss";
+import styles from "./Navbar.module.scss";
 
 const menuItems = ["articles", "blogs", "posts", "pricing", "docs"];
 
