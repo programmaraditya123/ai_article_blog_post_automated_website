@@ -55,8 +55,9 @@ app.use('/app/getblog',blogRoute)
 //post route
 app.use("/app/getpost",postRoute)
 
+const PORT = process.env.PORT || 8080;
 
-app.listen(8080,() => {
+app.listen(PORT,() => {
      console.log("Server.js is runing on PORT 8080")
 })
 
