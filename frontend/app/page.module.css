@@ -1,0 +1,98 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: white;
+}
+.main_cont{
+  padding-top: 20px;
+  margin-top: 50px;
+}
+
+
+/* ------------------- //not found csss---------------------- */
+.main_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 60px;
+    height: 400px;
+    width: 1233px;
+    border-radius: 36px;
+    border: 1px solid  brown;
+}
+.msg {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.message1 {
+    font-size: 60px;
+    font-weight: 600;
+    color: brown;
+    text-align: center;
+    letter-spacing: 0.15rem;
+     
+    line-height: 60px;
+}
+.message2 {
+    font-size: 27px;
+    font-weight: 300;
+    color: black;
+    text-align: center;
+    letter-spacing: 0.15rem;
+    line-height: 34px;
+     
+}
+ 
+/* ---------------------article Page ---------------- */
+
+.article_card_grid{
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+/* --------------------Blogs page ------------------- */
+.blog_card_grid{
+  column-count: 5;      /* number of columns */
+  column-gap: 1.5rem;   /* space between columns */
+  padding: 1rem;
+
+}
+
+
+/* -------------------posts page ---------------- */
+.post_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.8rem;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+}
+

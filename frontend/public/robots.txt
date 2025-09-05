@@ -1,0 +1,22 @@
+# robots.txt for My Blog/Article Website
+
+# Allow all search engines to crawl the site
+User-agent: *
+Allow: /
+Allow: /articles
+Allow: /blogs
+Allow: /posts
+
+# Block sensitive/admin pages
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /Pricing/
+Disallow: /Docs/
+Disallow: /homepage/
+
+# Block duplicate content (if any)
+Disallow: /tag/
+Disallow: /category/
+
+# Sitemap location (very important for SEO)
+Sitemap: https://yourdomain.com/sitemap.xml

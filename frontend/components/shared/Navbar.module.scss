@@ -1,0 +1,105 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  font-family: "Lexend Deca", sans-serif;
+  align-items: center;
+  margin: 0.5rem 0.5rem 0.25rem 0.5rem;
+  gap: 1rem;
+}
+
+.navbar_logo{
+  font-size: 1.5rem;
+  color: brown;
+  list-style: none;
+  text-decoration: none;
+}
+.homelink{
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: brown;
+  list-style: none;
+  
+}
+
+.navbar_center {
+  display: flex;
+  align-items: center;
+  height: 2.625rem;
+  border-radius: 100px;
+  padding: 0.25rem;
+  background: white;
+  box-shadow: 0.0625rem 0.125rem 0.625rem 0px #0000001a;
+}
+
+.navbar_links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  list-style: none !important;
+  // position: relative;
+  /* Add padding to the list itself to create balanced horizontal spacing */
+  padding: 0 0.5rem;
+}
+
+.navbar_links a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: brown;
+  font-size: 1.125rem;
+  border-radius: 100px;
+  padding: 0.5rem 1rem;
+  height: 34px;
+  box-sizing: border-box;
+  text-transform: capitalize;
+  border: 1.5px solid transparent; 
+}
+
+.navbar_links a.active {
+  color: #fff;
+  font-weight: 400;
+  background: 
+    linear-gradient(152.51deg, #762618 17.11%, #46170f 85.58%) padding-box,
+    linear-gradient(151.14deg, #b67064 17.11%, #1d0602 84.54%) border-box;
+  border: 2.5px solid transparent;
+  background-clip: padding-box, border-box;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.navbar_links a:hover:not(.active) {
+  border-color: brown;
+}
+
+.navbar_list {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0%;
+}
+
+.navbar_btns {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  align-items: center;
+  justify-content: center;
+}
+.user_btns{
+  color: #fff;
+  font-weight: 400;
+  background: 
+    linear-gradient(152.51deg, #762618 17.11%, #46170f 85.58%) padding-box,
+    linear-gradient(151.14deg, #b67064 17.11%, #1d0602 84.54%) border-box;
+  border: 2.5px solid transparent;
+  background-clip: padding-box, border-box;
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+@media screen and (max-width: 81.25rem) {
+  .navbar_links {
+    gap: 0;
+  }
+}
