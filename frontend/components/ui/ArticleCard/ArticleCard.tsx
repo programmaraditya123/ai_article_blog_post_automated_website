@@ -5,9 +5,6 @@ import Icons from '@/components/icons';
 
 
 const ArticleCard: React.FC<ArticleCardProps> = ({
-  icon: IconComponent, // Destructure with an alias for clarity
-  primaryButtonText ,
-  primaryButtonColor = "blue",
   title,
   description,
   link = '#',

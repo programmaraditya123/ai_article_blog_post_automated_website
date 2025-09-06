@@ -1,12 +1,26 @@
 import style from './Blogslug.module.scss'
 import React from 'react'
 import { getBlog } from '@/lib/api/blogs';
+import { Metadata } from 'next';
 
-export default async function BlogPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug: rawSlug } = await params;
-  const slug = decodeURIComponent(rawSlug);
-  const blog = await getBlog(slug);
-  console.log("------------", blog);
+type PageProps = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params; // ✅ No await here
+  return {
+    title: `blog - ${slug}`,
+    description: `Details about blog ${slug}`,
+  };
+}
+
+export default async function BlogPage({ params }: PageProps) {
+  const { slug } = await params; // ✅ await here too
+  const decodedSlug = decodeURIComponent(slug);
+  const blog = await getBlog(decodedSlug);
 
   return (
     <div className={style.art_parent_cont}>
@@ -24,6 +38,7 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
         </div>
 
         {/* Sections */}
+        // @ts-ignore
         {blog.sections?.map((section: any, index: number) => (
           <div key={index} className={style.section}>
             <h2 className={style.section_heading}>{section.heading}</h2>
@@ -57,13 +72,12 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
             </ul>
           </div>
         )}
-
       </div>
 
       {/* Related Articles Sidebar */}
       <aside className={style.related_article_container}>
         <h3>Related Articles</h3>
-        {/* You can later fetch related blogs and map them here */}
+        {/* TODO: fetch related blogs and map them here */}
       </aside>
     </div>
   );

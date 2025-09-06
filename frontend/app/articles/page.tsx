@@ -3,7 +3,7 @@ import Icons from '@/components/icons';
 import ArticleCard from '@/components/ui/ArticleCard/ArticleCard';
 import { fetchArticles } from '@/lib/api/articles';
 import { ArticleCardProps, Articles } from '@/types/articles';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import style from '../page.module.css';
 
 const data: ArticleCardProps = {
@@ -23,7 +23,7 @@ const Page = () => {
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  const loadArticles = async (reset = false) => {
+  const loadArticles = useCallback( async (reset = false) => {
     if (!hasMore && !reset) return;
     if (isLoading) return;
 
@@ -45,7 +45,7 @@ const Page = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  },[hasMore, isLoading, lastId]);
 
   const slugFormatter = (title: string, id: string) => {
     const ftitle = title
@@ -61,7 +61,7 @@ const Page = () => {
     setLastId(undefined);
     setHasMore(true);
     loadArticles(true);
-  }, []);
+  }, [loadArticles]);
 
   return (
     <>

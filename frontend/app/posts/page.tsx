@@ -1,6 +1,6 @@
 "use client";
 import PostCard from '@/components/ui/PostCard/PostCard';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import style from '../page.module.css';
 import { fetchPosts } from '@/lib/api/posts';
 import { Posts } from '@/types/articles';
@@ -11,7 +11,7 @@ const Page = () => {
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  const loadPosts = async (reset = false) => {
+  const loadPosts = useCallback( async (reset = false) => {
     if (!hasMore && !reset) return;
     if (isLoading) return; // prevent multiple rapid calls
 
@@ -33,7 +33,7 @@ const Page = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  },[hasMore, isLoading, lastId]);
 
   const slugFormatter = (title: string, id: string) => {
     return (
@@ -52,7 +52,7 @@ const Page = () => {
     setLastId(undefined);
     setHasMore(true);
     loadPosts(true);
-  }, []);
+  },[loadPosts]);
 
   return (
     <>

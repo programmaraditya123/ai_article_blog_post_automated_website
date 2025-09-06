@@ -1,18 +1,32 @@
 import style from './Postsslug.module.scss';
 import React from 'react'
 import { getPost } from '@/lib/api/posts';
+import { Metadata } from 'next';
 
-export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug: rawSlug } = await params;
-  const slug = decodeURIComponent(rawSlug);
-  const post = await getPost(slug);
-  console.log("------------", post);
+type PageProps = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params; // ✅ No await here
+  return {
+    title: `post - ${slug}`,
+    description: `Details about post ${slug}`,
+  };
+}
+
+export default async function PostPage({ params }: PageProps) {
+  const { slug } = await params; // ✅ await here too
+  const decodedSlug = decodeURIComponent(slug);
+  const post = await getPost(decodedSlug);
 
   return (
     <div className={style.art_parent_cont}>
       <div className={style.article_container}>
 
-        {/* post Title */}
+        {/* Post Title */}
         <div className={style.article_title}>
           <h1 className={style.article_title_h}>{post.title}</h1>
         </div>
@@ -28,7 +42,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
       {/* Related Articles Sidebar */}
       <aside className={style.related_article_container}>
         <h3>Related Articles</h3>
-        {/* You can later fetch related blogs and map them here */}
+        {/* TODO: fetch related posts and map them here */}
       </aside>
     </div>
   );

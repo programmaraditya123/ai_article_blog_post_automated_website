@@ -16,6 +16,8 @@ export async function fetchBlogs(
     return res.json()
 }
 
+
+// @ts-ignore
 export async function getBlog(slug:string): Promise<any|null>{
     const fslug = slug.split("-").pop()
     console.log("+++++++++++",slug)

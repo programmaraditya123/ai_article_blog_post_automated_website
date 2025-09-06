@@ -2,7 +2,7 @@
 import BlogCard from '@/components/ui/BlogCard/BlogCard';
 import { fetchBlogs } from '@/lib/api/blogs';
 import { Blogs } from '@/types/articles';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import style from '../page.module.css';
 
 const Page = () => {
@@ -11,7 +11,7 @@ const Page = () => {
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  const loadBlogs = async (reset = false) => {
+  const loadBlogs = useCallback( async (reset = false) => {
     if (!hasMore && !reset) return;
     if (isLoading) return;
 
@@ -33,7 +33,7 @@ const Page = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  },[hasMore, isLoading, lastId]);
 
   const slugFormatter = (title: string, id: string) => {
     return (
@@ -52,7 +52,7 @@ const Page = () => {
     setLastId(undefined);
     setHasMore(true);
     loadBlogs(true);
-  }, []);
+  },[loadBlogs]);
 
   return (
     <>

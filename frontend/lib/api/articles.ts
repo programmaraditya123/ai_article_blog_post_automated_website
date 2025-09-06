@@ -18,6 +18,7 @@ export async function fetchArticles(
     return res.json()
 }
 
+// @ts-ignore
 export async function getArticle(slug:string): Promise<Articles|any|null>{
     const fslug = slug.split("-").pop()
     console.log("+++++++++++",slug)
