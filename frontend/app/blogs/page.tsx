@@ -52,7 +52,7 @@ const Page = () => {
     setLastId(undefined);
     setHasMore(true);
     loadBlogs(true);
-  },[loadBlogs]);
+  },[]);
 
   return (
     <>

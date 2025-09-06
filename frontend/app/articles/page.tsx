@@ -61,7 +61,7 @@ const Page = () => {
     setLastId(undefined);
     setHasMore(true);
     loadArticles(true);
-  }, [loadArticles]);
+  }, []);
 
   return (
     <>
