@@ -6,6 +6,7 @@ from .Workflows.MainWorkflow import workflow
 from .Workflows.MainWorkflow import initial_state
 from .api.articles import getTitles
 from typing import Literal
+from .services.pinecone_retreiver.pinecone_retreiver import vector_search
 app = FastAPI()
 
  
@@ -38,3 +39,7 @@ async def read_root(req:TopicRequest):
     result = workflow.invoke(state)
     return result
     
+
+@app.get('/recommendation')
+async def read_root(query:str):
+    return vector_search(query)

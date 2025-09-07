@@ -46,4 +46,4 @@ def generateArticle(topic:str):
     article = chain.invoke({'topic':topic})
     article_id = saveArticle(article)
     print(f"Article saved with id :{article_id}")
-    return article
+    return {"article":article,"_id_":article_id}

@@ -23,12 +23,13 @@ class SubSection(BaseModel):
 class Section(BaseModel):
     heading: str = Field(..., description="Main section heading (h1)")
     summary: Optional[str] = Field(None, description="Why this section is important / preview")
-    details: str = Field(..., description="Full detailed content for this section")
+    details: Optional[str] = Field(None, description="Full detailed content for this section")  # 👈 FIXED
     types: Optional[List[str]] = Field(None, description="Types if applicable")
     advantages: Optional[List[str]] = Field(None, description="Advantages list if applicable")
     disadvantages: Optional[List[str]] = Field(None, description="Disadvantages list if applicable")
     subsections: Optional[List[SubSection]] = Field(None, description="Optional nested subsections")
     tables: Optional[List[Table]] = Field(None, description="Tables relevant to this section")
+
 
 
 class SEO(BaseModel):

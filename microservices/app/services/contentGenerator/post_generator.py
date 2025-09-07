@@ -23,6 +23,6 @@ def generatePost(topic:str):
     post = chain.invoke({'topic':topic})
     post_id = savePost(post)
     print("post saved with id :",{post_id})
-    return post
+    return {"post":post,"_id_":post_id}
 
 

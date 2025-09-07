@@ -20,4 +20,4 @@ def generateBlog(topic:str):
     blog = chain.invoke({'topic':topic})
     blog_id = saveBlog(blog)
     print(f"blog saved with id : {blog_id}")
-    return blog
+    return {"blog":blog,"_id_":blog_id}

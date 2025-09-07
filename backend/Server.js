@@ -15,7 +15,10 @@ require('dotenv').config()
 connectdb();
 
 
+
 const allowedOrigins = [
+  "https://ai-article-blog-post-automated-website-ez96sid3r.vercel.app",
+  "https://ai-article-blog-post-automated-website-xxcmna0tt.vercel.app",
   'https://www.knowledgepoll.site',
   'http://localhost:3001',
   'http://localhost:3000',
@@ -28,6 +31,8 @@ const app = express();
 const app1 = express();
 app.use(express.json())
 app1.use(express.json())
+
+app.use(cors({ origin: "*" }));
 
 app.use(cors({
   origin: function (origin, callback) {
