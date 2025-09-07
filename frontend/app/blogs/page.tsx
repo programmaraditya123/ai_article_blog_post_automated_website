@@ -4,6 +4,8 @@ import { fetchBlogs } from '@/lib/api/blogs';
 import { Blogs } from '@/types/articles';
 import React, { useCallback, useEffect, useState } from 'react';
 import style from '../page.module.css';
+import LoadMoreButton from '@/components/ui/load_more_button/Load_More_Button';
+import Icons from '@/components/icons';
 
 const Page = () => {
   const [blogs, setBlogs] = useState<Blogs[]>([]);
@@ -67,8 +69,13 @@ const Page = () => {
         ))}
       </div>
 
-      {hasMore && !isLoading && <button onClick={() => loadBlogs()}>Load More</button>}
-      {isLoading && <p>Loading...</p>}
+     
+       {/* {hasMore && !isLoading && <button onClick={() => loadArticles()}>Load More</button>} */}
+      <div className={style.btnCenter}>
+      {hasMore && !isLoading && <LoadMoreButton onClick={() => loadBlogs()} text='Read More Blogs'/>}
+      
+      {isLoading && <LoadMoreButton   Icon={Icons.LoadIcon}/>}
+      </div>
     </>
   );
 };

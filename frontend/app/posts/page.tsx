@@ -4,6 +4,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import style from '../page.module.css';
 import { fetchPosts } from '@/lib/api/posts';
 import { Posts } from '@/types/articles';
+import LoadMoreButton from '@/components/ui/load_more_button/Load_More_Button';
+import Icons from '@/components/icons';
 
 const Page = () => {
   const [posts, setPosts] = useState<Posts[]>([]);
@@ -66,10 +68,9 @@ const Page = () => {
         ))}
       </div>
 
-      {hasMore && !isLoading && (
-        <button onClick={() => loadPosts()}>Load More</button>
-      )}
-      {isLoading && <p>Loading...</p>}
+       <div className={style.btnCenter}>
+      {hasMore && !isLoading && <LoadMoreButton onClick={() => loadPosts()} text='Read More Post'/>}
+      {isLoading && <LoadMoreButton   Icon={Icons.LoadIcon}/>}</div>
     </>
   );
 };
