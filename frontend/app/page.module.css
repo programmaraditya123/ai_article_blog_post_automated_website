@@ -65,11 +65,18 @@
     justify-content: center;
     gap: 1.5rem;
 }
+.btnCenter{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 /* --------------------Blogs page ------------------- */
 .blog_card_grid{
-  column-count: 5;      /* number of columns */
-  column-gap: 1.5rem;   /* space between columns */
+  column-count: 5  ;
+  
+  row-gap: 2.5rem;    /* number of columns
+  /* column-gap: 1.5rem;   space between columns */
   padding: 1rem;
 
 }

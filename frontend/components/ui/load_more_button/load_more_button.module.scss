@@ -1,0 +1,52 @@
+
+.btn_parent {
+  
+    margin:3rem;
+
+   
+  background:  linear-gradient(
+    135deg,              /* diagonal */
+    rgb(240, 141, 141) 0%,            /* start white */
+    rgb(184, 36, 36) 80%,             /* blend into red up to 80% */
+    white 80%,           /* sharp switch to pure white */
+    white 100%           /* keep last 20% pure white */
+  ); // blue gradient
+  color: #fff;
+  text-shadow: 1px 1px 1px black;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid black;
+  border-radius: 9999px; // pill shape
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    background: linear-gradient( 135deg,              /* diagonal */
+    rgb(240, 141, 141) 0%,            /* start white */
+    rgb(184, 36, 36) 80%,             /* blend into red up to 80% */
+    white 80%,           /* sharp switch to pure white */
+    white 100%  ) ;
+    transform: translateY(-2px),scale(1.5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    -webkit-transform: translateY(-2px),scale(1.5);
+    -moz-transform: translateY(-2px),scale(1.5);
+    -ms-transform: translateY(-2px),scale(1.5);
+    -o-transform: translateY(-2px),scale(1.5);
+}
+
+  &:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 3px 10px rgba(0, 5, 16, 0.3);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 1px 1px 1px 3px rgba(0, 2, 6, 0.5);
+  }
+  
+}
+
+
+ 

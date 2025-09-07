@@ -5,6 +5,7 @@ import { fetchArticles } from '@/lib/api/articles';
 import { ArticleCardProps, Articles } from '@/types/articles';
 import React, { useCallback, useEffect, useState } from 'react';
 import style from '../page.module.css';
+import LoadMoreButton from '@/components/ui/load_more_button/Load_More_Button';
 
 const data: ArticleCardProps = {
   icon: Icons.DatabaseIcon,
@@ -75,10 +76,13 @@ const Page = () => {
             link={`/articles/${slugFormatter(item.title, item._id)}`}
           />
         ))}
-      </div>
+      </div >
 
-      {hasMore && !isLoading && <button onClick={() => loadArticles()}>Load More</button>}
-      {isLoading && <p>Loading...</p>}
+      {/* {hasMore && !isLoading && <button onClick={() => loadArticles()}>Load More</button>} */}
+      <div className={style.btnCenter}>
+      {hasMore && !isLoading && <LoadMoreButton  onClick={() =>loadArticles()} text='Read More Articles'/>}
+    
+      {isLoading && <LoadMoreButton  Icon={Icons.LoadIcon}/>}</div>
     </>
   );
 };
