@@ -1,12 +1,16 @@
 from fastapi import FastAPI
 import requests
 from pydantic import BaseModel
+import os
 # from .services.article_generator import generateArticle
-from .Workflows.MainWorkflow import workflow
-from .Workflows.MainWorkflow import initial_state
-from .api.articles import getTitles
+# from .Workflows.MainWorkflow import workflow
+# from .Workflows.MainWorkflow import initial_state
+# from .api.articles import getTitles
+from Workflows.MainWorkflow import workflow,initial_state
+from api.articles import getTitles
 from typing import Literal
-from .services.pinecone_retreiver.pinecone_retreiver import vector_search
+# from .services.pinecone_retreiver.pinecone_retreiver import vector_search
+from services.pinecone_retreiver.pinecone_retreiver import vector_search
 app = FastAPI()
 
  
@@ -47,4 +51,5 @@ async def read_root(query:str):
 
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 8080))  # Default to 8080 if PORT not set
+    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=port)
