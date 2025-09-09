@@ -1,49 +1,46 @@
+import { MetadataRoute } from "next";
 import clientPromise from "@/lib/api/mongodb";
 
-export default async function sitemap() {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://knowledgepoll.site";
 
-  // Function to generate slugs
   const slugFormatter = (title: string, id: string) => {
+    if (!title || !id) return null;
     return (
       title
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "") +
       "-" +
-      id
+      id.toString()
     );
   };
 
   const client = await clientPromise;
   const db = client.db("ArticleBlogPosts");
 
-  // Helper function to fetch a collection and map to sitemap entries
-  const fetchCollection = async (collectionName: string, path: string) => {
-    const items = await db
-      .collection(collectionName)
-      .find({}, { projection: { title: 1, updatedAt: 1 } })
-      .toArray();
+  const [articles, blogs, posts] = await Promise.all([
+    db.collection("articles").find({}, { projection: { title: 1, updatedAt: 1 } }).toArray(),
+    db.collection("blogs").find({}, { projection: { title: 1, updatedAt: 1 } }).toArray(),
+    db.collection("posts").find({}, { projection: { title: 1, updatedAt: 1 } }).toArray(),
+  ]);
 
-    return items.map((item) => ({
-      url: `${baseUrl}/${path}/${slugFormatter(item.title, item._id)}`,
-      lastModified: item.updatedAt || new Date(),
-      changefreq: "weekly",
-      priority: 0.8,
-    }));
-  };
+  const mapEntries = (items: any[], type: "articles" | "blogs" | "posts") =>
+    items
+      .map((item) => {
+        const slug = slugFormatter(item.title, item._id);
+        if (!slug) return null;
+        return {
+          url: `${baseUrl}/${type}/${slug}`,
+          lastModified: item.updatedAt || new Date(),
+        };
+      })
+      .filter(Boolean);
 
-  // Fetch all collections
-  const articleEntries = await fetchCollection("articles", "articles");
-  const blogEntries = await fetchCollection("blogs", "blogs");
-  const postEntries = await fetchCollection("posts", "posts");
-
-  // Static pages
-  const staticEntries = [
+  const staticEntries: MetadataRoute.Sitemap = [
     { url: `${baseUrl}`, lastModified: new Date() },
     { url: `${baseUrl}/about`, lastModified: new Date() },
   ];
 
-  // Combine everything
-  return [...staticEntries, ...articleEntries, ...blogEntries, ...postEntries];
+  return [...staticEntries, ...mapEntries(articles, "articles"), ...mapEntries(blogs, "blogs"), ...mapEntries(posts, "posts")];
 }
