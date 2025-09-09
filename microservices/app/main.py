@@ -1,15 +1,16 @@
+import sys
+from pathlib import Path
+
+# Add parent folder to sys.path so Workflows can be imported
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+
 from fastapi import FastAPI
 import requests
 from pydantic import BaseModel
 import os
-# from .services.article_generator import generateArticle
-# from .Workflows.MainWorkflow import workflow
-# from .Workflows.MainWorkflow import initial_state
-# from .api.articles import getTitles
 from Workflows.MainWorkflow import workflow,initial_state
 from api.articles import getTitles
 from typing import Literal
-# from .services.pinecone_retreiver.pinecone_retreiver import vector_search
 from services.pinecone_retreiver.pinecone_retreiver import vector_search
 app = FastAPI()
 

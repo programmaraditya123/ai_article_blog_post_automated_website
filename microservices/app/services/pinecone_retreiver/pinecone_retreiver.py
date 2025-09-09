@@ -1,4 +1,4 @@
-from ..pinecone_vector_search.vector_search import vectorstore
+from pinecone_vector_search.vector_search import vectorstore
 
 # Connect vectorstore
 vectorstore = vectorstore

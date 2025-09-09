@@ -1,6 +1,6 @@
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
-from ....models.blog_model import BlogResponse
+from models.blog_model import BlogResponse
 
 parser = PydanticOutputParser(pydantic_object=BlogResponse)
 

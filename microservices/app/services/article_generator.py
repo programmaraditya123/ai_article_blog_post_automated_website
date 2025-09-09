@@ -3,8 +3,8 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts import PromptTemplate
 from langchain_core.output_parsers import PydanticOutputParser
 from dotenv import load_dotenv
-from ..clients.mongodb_client import articles_collection
-from ..models.article_models import Article
+from clients.mongodb_client import articles_collection
+from models.article_models import Article
 
 load_dotenv()
 

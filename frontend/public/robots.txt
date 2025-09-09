@@ -19,4 +19,5 @@ Disallow: /tag/
 Disallow: /category/
 
 # Sitemap location (very important for SEO)
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://knowledgepoll.site/sitemap.xml
+

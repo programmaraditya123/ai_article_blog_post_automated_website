@@ -1,9 +1,9 @@
 from langchain_openai import ChatOpenAI
 from dotenv import load_dotenv
 from langchain_core.output_parsers import PydanticOutputParser
-from ...models.blog_model import BlogResponse
+from models.blog_model import BlogResponse
 from ..Prompts.Blog_Prompts.Blog_structure_prompt import blogprompt
-from ...clients.mongodb_client import blogs_collection
+from clients.mongodb_client import blogs_collection
 
 model = ChatOpenAI()
 
