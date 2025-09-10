@@ -24,7 +24,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     const slugFormatter = (title: string, id: string): string | null => {
   const safeTitle = (title ?? "untitled").toString();
-  const safeId = (id ?? "").toString();
+  const safeId = (id ?? "123456").toString();
 
   if (!safeTitle.trim() || !safeId.trim()) return null;
 
