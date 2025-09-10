@@ -23,40 +23,39 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]);
 
     const slugFormatter = (title: string, id: string): string | null => {
-      // ✅ Aggressively ensure title and id are strings, providing a fallback empty string.
-      const safeTitle = (title ?? "aditya").toString();
-      const safeId = (id ?? "123456789").toString();
+  const safeTitle = (title ?? "untitled").toString();
+  const safeId = (id ?? "").toString();
 
-      if (safeTitle.trim() === "" || safeId.trim() === "") {
+  if (!safeTitle.trim() || !safeId.trim()) return null;
+
+  return safeTitle
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+};
+
+
+const mapEntries = (
+  items: any[],
+  type: "articles" | "blogs" | "posts"
+): MetadataRoute.Sitemap =>
+  (items ?? [])
+    .map((item) => {
+      const safeId = item?._id?.toString?.() ?? "";
+      const slug = slugFormatter(item?.title, safeId);
+
+      if (!slug || !safeId) {
+        console.warn(`Skipping document with invalid data in collection: ${type}`);
         return null;
       }
 
-      return safeTitle
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "");
-    };
+      return {
+        url: `${baseUrl}/${type}/${slug}-${safeId}`,
+        lastModified: new Date(item?.updatedAt ?? Date.now()),
+      };
+    })
+    .filter(Boolean) as MetadataRoute.Sitemap;
 
-    const mapEntries = (
-      items: any[],
-      type: "articles" | "blogs" | "posts"
-    ): MetadataRoute.Sitemap =>
-      (items ?? [])
-        .map((item) => {
-          // ✅ Combine nullish coalescing with type checks for maximum safety.
-          const slug = slugFormatter(item?.title, item?._id);
-
-          if (!slug) {
-            console.warn(`Skipping document due to invalid slug formatting in collection: ${type}`);
-            return null;
-          }
-
-          const lastModified = new Date((item?.updatedAt ?? Date.now()));
-          const url = `${baseUrl}/${type}/${slug}-${item._id}`;
-
-          return { url, lastModified };
-        })
-        .filter(Boolean) as MetadataRoute.Sitemap;
 
     return [
       ...staticEntries,
