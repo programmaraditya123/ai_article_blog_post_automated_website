@@ -1,22 +1,16 @@
 import { MetadataRoute } from "next";
 import clientPromise from "@/lib/api/mongodb";
 
-export const dynamic = "force-dynamic"; // 🚀 ensures runtime execution on Vercel
+export const revalidate = 0;           // ⛔ no caching at build
+export const dynamic = "force-dynamic"; // ⛔ always runtime
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://knowledgepoll.site";
 
-  const slugFormatter = (title: string, id: any) => {
-    if (!title || !id) return null;
-    return (
-      title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "") +
-      "-" +
-      id.toString()
-    );
-  };
+  const staticEntries: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}`, lastModified: new Date() },
+    { url: `${baseUrl}/about`, lastModified: new Date() },
+  ];
 
   try {
     const client = await clientPromise;
@@ -28,36 +22,29 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       db.collection("posts").find({}, { projection: { title: 1, updatedAt: 1 } }).toArray(),
     ]);
 
+    const slugFormatter = (title: string, id: any) =>
+      title
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "") + "-" + id.toString();
+
     const mapEntries = (
       items: any[],
       type: "articles" | "blogs" | "posts"
     ): MetadataRoute.Sitemap =>
-      items
+      (items ?? [])
         .map((item) => {
-          if (!item || !item.title || !item._id) return null;
+          if (!item?.title || !item?._id) return null;
 
           const slug = slugFormatter(item.title, item._id);
           if (!slug) return null;
 
-          let lastModified: Date;
-          try {
-            lastModified = item.updatedAt ? new Date(item.updatedAt) : new Date();
-            if (isNaN(lastModified.getTime())) lastModified = new Date();
-          } catch {
-            lastModified = new Date();
-          }
-
+          const lastModified = new Date(item.updatedAt || Date.now());
           const url = `${baseUrl}/${type}/${slug}`;
-          if (!url.startsWith("http")) return null;
 
-          return { url, lastModified };
+          return url.startsWith("http") ? { url, lastModified } : null;
         })
         .filter(Boolean) as MetadataRoute.Sitemap;
-
-    const staticEntries: MetadataRoute.Sitemap = [
-      { url: `${baseUrl}`, lastModified: new Date() },
-      { url: `${baseUrl}/about`, lastModified: new Date() },
-    ];
 
     return [
       ...staticEntries,
@@ -66,12 +53,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       ...mapEntries(posts, "posts"),
     ];
   } catch (err) {
-    console.error("Sitemap error:", err);
+    console.error("Sitemap generation failed:", err);
 
-    // fallback sitemap if DB fails
-    return [
-      { url: baseUrl, lastModified: new Date() },
-      { url: `${baseUrl}/about`, lastModified: new Date() },
-    ];
+    // ✅ fallback so build never fails
+    return staticEntries;
   }
 }
