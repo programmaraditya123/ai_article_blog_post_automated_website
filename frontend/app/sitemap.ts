@@ -31,16 +31,30 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ): MetadataRoute.Sitemap =>
     items
       .map((item) => {
-        if (!item || !item.title || !item._id) return null; // 🚨 guard
+        if (!item || !item.title || !item._id) return null;
+
         const slug = slugFormatter(item.title, item._id);
         if (!slug) return null;
-        return {
-          url: `${baseUrl}/${type}/${slug}`,
-          lastModified: item.updatedAt ? new Date(item.updatedAt) : new Date(),
-        };
-      })
-      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)); // remove nulls
 
+        // validate date
+        let lastModified: Date;
+        try {
+          lastModified = item.updatedAt ? new Date(item.updatedAt) : new Date();
+          if (isNaN(lastModified.getTime())) {
+            lastModified = new Date();
+          }
+        } catch {
+          lastModified = new Date();
+        }
+
+        const url = `${baseUrl}/${type}/${slug}`;
+        if (typeof url !== "string" || !url.startsWith("http")) return null;
+
+        return { url, lastModified };
+      })
+      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
+
+  // ✅ You forgot this in your last code
   const staticEntries: MetadataRoute.Sitemap = [
     { url: `${baseUrl}`, lastModified: new Date() },
     { url: `${baseUrl}/about`, lastModified: new Date() },
