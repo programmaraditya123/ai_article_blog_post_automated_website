@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import clientPromise from "@/lib/api/mongodb";
 
-export const revalidate = 0;
+export const revalidate = 0; 
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -23,14 +23,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]);
 
     const slugFormatter = (title: string, id: any) => {
-      // ✅ Add a type guard to ensure title is a valid string
-      if (typeof title !== 'string' || !title) {
+      // ✅ Use nullish coalescing to provide a default empty string
+      const sanitizedTitle = (title ?? "").toString();
+      const sanitizedId = (id ?? "").toString();
+      
+      // ✅ Return null if the sanitized title or ID is empty
+      if (!sanitizedTitle || !sanitizedId) {
         return null;
       }
-      return title
+
+      return sanitizedTitle
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "") + "-" + id.toString();
+        .replace(/^-+|-+$/g, "") + "-" + sanitizedId;
     };
 
     const mapEntries = (
@@ -39,13 +44,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ): MetadataRoute.Sitemap =>
       (items ?? [])
         .map((item) => {
-          // ✅ Ensure both title and _id exist before proceeding
-          if (!item?.title || !item?._id) {
-            console.warn(`Skipping document due to missing title or _id in collection: ${type}`);
-            return null;
-          }
-
-          const slug = slugFormatter(item.title, item._id);
+          // ✅ Use nullish coalescing to ensure item.title and item._id are strings
+          const slug = slugFormatter(item?.title ?? '', item?._id ?? '');
 
           // ✅ Handle case where slugFormatter returns null
           if (!slug) {
@@ -53,7 +53,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             return null;
           }
 
-          const lastModified = new Date(item.updatedAt || Date.now());
+          // ✅ Use nullish coalescing for lastModified to ensure a valid date
+          const lastModified = new Date(item?.updatedAt ?? Date.now());
           const url = `${baseUrl}/${type}/${slug}`;
 
           return { url, lastModified };
