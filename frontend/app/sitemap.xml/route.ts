@@ -1,8 +1,10 @@
 import { NextResponse } from "next/server";
 import clientPromise from "@/lib/api/mongodb";
 
-export const revalidate = 0; // no caching
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+export const runtime = "nodejs"; // force Node.js runtime
+
 
 export async function GET() {
   const baseUrl = "https://knowledgepoll.site";
