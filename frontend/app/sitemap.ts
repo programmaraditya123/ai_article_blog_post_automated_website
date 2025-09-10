@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import clientPromise from "@/lib/api/mongodb";
 
-export const revalidate = 0; 
+export const revalidate = 0;
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticEntries: MetadataRoute.Sitemap = [
     { url: `${baseUrl}`, lastModified: new Date() },
-    { url: `${baseUrl}/pricing`, lastModified: new Date() },
+    { url: `${baseUrl}/about`, lastModified: new Date() },
   ];
 
   try {
@@ -23,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ]);
 
     const slugFormatter = (title: string, id: any) => {
-      // ✅ Add a type guard to ensure title is a string
+      // ✅ Add a type guard to ensure title is a valid string
       if (typeof title !== 'string' || !title) {
         return null;
       }
@@ -68,6 +68,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
   } catch (err) {
     console.error("Sitemap generation failed:", err);
+    // ✅ Fallback to static entries to prevent build failure
     return staticEntries;
   }
 }
