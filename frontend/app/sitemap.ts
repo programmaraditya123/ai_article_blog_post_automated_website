@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import clientPromise from "@/lib/api/mongodb";
 
-export const revalidate = 0; 
+export const revalidate = 0;
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -22,20 +22,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       db.collection("posts").find({}, { projection: { title: 1, updatedAt: 1 } }).toArray(),
     ]);
 
-    const slugFormatter = (title: string, id: any) => {
-      // ✅ Use nullish coalescing to provide a default empty string
-      const sanitizedTitle = (title ?? "").toString();
-      const sanitizedId = (id ?? "").toString();
-      
-      // ✅ Return null if the sanitized title or ID is empty
-      if (!sanitizedTitle || !sanitizedId) {
+    const slugFormatter = (title: any, id: any): string | null => {
+      // ✅ Aggressively ensure title and id are strings, providing a fallback empty string.
+      const safeTitle = (title ?? "").toString();
+      const safeId = (id ?? "").toString();
+
+      if (safeTitle.trim() === "" || safeId.trim() === "") {
         return null;
       }
 
-      return sanitizedTitle
+      return safeTitle
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "") + "-" + sanitizedId;
+        .replace(/^-+|-+$/g, "");
     };
 
     const mapEntries = (
@@ -44,18 +43,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ): MetadataRoute.Sitemap =>
       (items ?? [])
         .map((item) => {
-          // ✅ Use nullish coalescing to ensure item.title and item._id are strings
-          const slug = slugFormatter(item?.title ?? '', item?._id ?? '');
+          // ✅ Combine nullish coalescing with type checks for maximum safety.
+          const slug = slugFormatter(item?.title, item?._id);
 
-          // ✅ Handle case where slugFormatter returns null
           if (!slug) {
             console.warn(`Skipping document due to invalid slug formatting in collection: ${type}`);
             return null;
           }
 
-          // ✅ Use nullish coalescing for lastModified to ensure a valid date
-          const lastModified = new Date(item?.updatedAt ?? Date.now());
-          const url = `${baseUrl}/${type}/${slug}`;
+          const lastModified = new Date((item?.updatedAt ?? Date.now()));
+          const url = `${baseUrl}/${type}/${slug}-${item._id}`;
 
           return { url, lastModified };
         })
