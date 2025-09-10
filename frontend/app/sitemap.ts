@@ -22,10 +22,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       db.collection("posts").find({}, { projection: { title: 1, updatedAt: 1 } }).toArray(),
     ]);
 
-    const slugFormatter = (title: any, id: any): string | null => {
+    const slugFormatter = (title: string, id: string): string | null => {
       // ✅ Aggressively ensure title and id are strings, providing a fallback empty string.
-      const safeTitle = (title ?? "").toString();
-      const safeId = (id ?? "").toString();
+      const safeTitle = (title ?? "aditya").toString();
+      const safeId = (id ?? "123456789").toString();
 
       if (safeTitle.trim() === "" || safeId.trim() === "") {
         return null;
