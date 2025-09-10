@@ -1,15 +1,15 @@
 import { MetadataRoute } from "next";
 import clientPromise from "@/lib/api/mongodb";
 
-export const revalidate = 0;           // ⛔ no caching at build
-export const dynamic = "force-dynamic"; // ⛔ always runtime
+export const revalidate = 0; 
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://knowledgepoll.site";
 
   const staticEntries: MetadataRoute.Sitemap = [
     { url: `${baseUrl}`, lastModified: new Date() },
-    { url: `${baseUrl}/about`, lastModified: new Date() },
+    { url: `${baseUrl}/pricing`, lastModified: new Date() },
   ];
 
   try {
@@ -22,11 +22,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       db.collection("posts").find({}, { projection: { title: 1, updatedAt: 1 } }).toArray(),
     ]);
 
-    const slugFormatter = (title: string, id: any) =>
-      title
+    const slugFormatter = (title: string, id: any) => {
+      // ✅ Add a type guard to ensure title is a string
+      if (typeof title !== 'string' || !title) {
+        return null;
+      }
+      return title
         .toLowerCase()
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "") + "-" + id.toString();
+    };
 
     const mapEntries = (
       items: any[],
@@ -34,15 +39,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ): MetadataRoute.Sitemap =>
       (items ?? [])
         .map((item) => {
-          if (!item?.title || !item?._id) return null;
+          // ✅ Ensure both title and _id exist before proceeding
+          if (!item?.title || !item?._id) {
+            console.warn(`Skipping document due to missing title or _id in collection: ${type}`);
+            return null;
+          }
 
           const slug = slugFormatter(item.title, item._id);
-          if (!slug) return null;
+
+          // ✅ Handle case where slugFormatter returns null
+          if (!slug) {
+            console.warn(`Skipping document due to invalid slug formatting in collection: ${type}`);
+            return null;
+          }
 
           const lastModified = new Date(item.updatedAt || Date.now());
           const url = `${baseUrl}/${type}/${slug}`;
 
-          return url.startsWith("http") ? { url, lastModified } : null;
+          return { url, lastModified };
         })
         .filter(Boolean) as MetadataRoute.Sitemap;
 
@@ -54,8 +68,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
   } catch (err) {
     console.error("Sitemap generation failed:", err);
-
-    // ✅ fallback so build never fails
     return staticEntries;
   }
 }
