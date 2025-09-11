@@ -2,6 +2,8 @@ import style from './Blogslug.module.scss'
 import React from 'react'
 import { getBlog } from '@/lib/api/blogs';
 import { Metadata } from 'next';
+import { getRecommendations } from '@/lib/api/recommendation';
+import RelatedArticles from '@/components/shared/RealatedArticle/RealatedArticle';
 
 type PageProps = {
   params: Promise<{
@@ -21,6 +23,8 @@ export default async function BlogPage({ params }: PageProps) {
   const { slug } = await params; // ✅ await here too
   const decodedSlug = decodeURIComponent(slug);
   const blog = await getBlog(decodedSlug);
+
+  const recommendation =await  getRecommendations(slug)
 
   return (
     <div className={style.art_parent_cont}>
@@ -75,10 +79,9 @@ export default async function BlogPage({ params }: PageProps) {
       </div>
 
       {/* Related Articles Sidebar */}
-      <aside className={style.related_article_container}>
-        <h3>Related Articles</h3>
-        {/* TODO: fetch related blogs and map them here */}
-      </aside>
+       <div className={style.related_article_container}>
+          <RelatedArticles articles={recommendation || []} />
+        </div>
     </div>
   );
 }

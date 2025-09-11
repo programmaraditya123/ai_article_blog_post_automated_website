@@ -178,7 +178,7 @@
 .related_article_container {
   flex: 1;
   background: #fff;
-  padding: 1.5rem;
+  padding: 0.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   height: fit-content;
@@ -186,7 +186,7 @@
   top: 2rem;
 
   &::before {
-    content: "📚 Related Articles";
+    content: "📚 Related Content";
     display: block;
     font-weight: 600;
     font-size: 1.2rem;

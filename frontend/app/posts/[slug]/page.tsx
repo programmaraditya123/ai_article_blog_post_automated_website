@@ -2,6 +2,8 @@ import style from './Postsslug.module.scss';
 import React from 'react'
 import { getPost } from '@/lib/api/posts';
 import { Metadata } from 'next';
+import { getRecommendations } from '@/lib/api/recommendation';
+import RelatedArticles from '@/components/shared/RealatedArticle/RealatedArticle';
 
 type PageProps = {
   params: Promise<{
@@ -22,6 +24,9 @@ export default async function PostPage({ params }: PageProps) {
   const decodedSlug = decodeURIComponent(slug);
   const post = await getPost(decodedSlug);
 
+  const recommendation =await  getRecommendations(slug)
+  
+
   return (
     <div className={style.art_parent_cont}>
       <div className={style.article_container}>
@@ -40,10 +45,9 @@ export default async function PostPage({ params }: PageProps) {
       </div>
 
       {/* Related Articles Sidebar */}
-      <aside className={style.related_article_container}>
-        <h3>Related Articles</h3>
-        {/* TODO: fetch related posts and map them here */}
-      </aside>
+       <div className={style.related_article_container}>
+          <RelatedArticles articles={recommendation || []} />
+        </div>
     </div>
   );
 }

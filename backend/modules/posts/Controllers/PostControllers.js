@@ -19,7 +19,7 @@ const getOnePost = async (req, res) => {
 const getAllPosts = async (req, res) => {
     try {
         const limit = parseInt(req.query.limit) || 10;
-        const lastId = req.query.lastid;
+        const lastId = req.query.lastId;
 
         const query = lastId ? { _id: { $gt: lastId } } : {};
         const data = await post.find(query).sort({ _id: 1 }).limit(limit).select("title")

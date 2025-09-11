@@ -87,3 +87,17 @@ export interface Section {
 export interface ArticleSection{
   sections:Section[];
 }
+
+
+interface RecommendItem {
+  id: string;
+  metadata: {
+    id: string;
+    title: string;
+    type: "posts" | "articles" | "blogs"; // restrict to known values
+  };
+  page_content: string;
+  type: "Document";
+}
+
+type Recommendations = RecommendItem[];

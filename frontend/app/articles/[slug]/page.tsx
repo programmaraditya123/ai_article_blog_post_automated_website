@@ -3,6 +3,8 @@ import style from './Articleslug.module.scss';
 import React from 'react'
 import { Section } from '@/types/articles';
 import { Metadata } from "next";
+import { getRecommendations } from '@/lib/api/recommendation';
+import RelatedArticles from '@/components/shared/RealatedArticle/RealatedArticle';
 
 
 type PageProps = {
@@ -23,6 +25,10 @@ export default async function ArticlePage({ params }: PageProps) {
   const { slug } = await params; // ✅ await here too
   const decodedSlug = decodeURIComponent(slug);
   const article = await getArticle(decodedSlug);
+ 
+  const recommendation =await  getRecommendations(slug)
+
+
 
   return (
     <> 
@@ -127,8 +133,8 @@ export default async function ArticlePage({ params }: PageProps) {
           </div>
         </div>
 
-        <div className={style.related_article_container}>
-          related articles
+       <div className={style.related_article_container}>
+          <RelatedArticles articles={recommendation || []} />
         </div>
       </div>
     </>
