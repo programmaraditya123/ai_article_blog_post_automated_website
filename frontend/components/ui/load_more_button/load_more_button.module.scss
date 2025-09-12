@@ -5,11 +5,15 @@
 
    
   background:  linear-gradient(
-    135deg,              /* diagonal */
-    rgb(240, 141, 141) 0%,            /* start white */
-    rgb(184, 36, 36) 80%,             /* blend into red up to 80% */
-    white 80%,           /* sharp switch to pure white */
-    white 100%           /* keep last 20% pure white */
+    135deg,              
+     
+       
+          #232228,
+          #232228,
+          #232228,
+          #232228,
+          #ffb741
+        
   ); // blue gradient
   color: #fff;
   text-shadow: 1px 1px 1px black;
@@ -23,11 +27,15 @@
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
 
   &:hover {
-    background: linear-gradient( 135deg,              /* diagonal */
-    rgb(240, 141, 141) 0%,            /* start white */
-    rgb(184, 36, 36) 80%,             /* blend into red up to 80% */
-    white 80%,           /* sharp switch to pure white */
-    white 100%  ) ;
+    background: linear-gradient( 135deg,              
+     
+       
+          #232228,
+          #232228,
+          #232228,
+          #232228,
+          #ffb741
+        ) ;
     transform: translateY(-2px),scale(1.5);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     -webkit-transform: translateY(-2px),scale(1.5);
