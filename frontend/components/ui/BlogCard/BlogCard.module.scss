@@ -8,15 +8,24 @@
 //     border-radius: 1rem;
 // }
 .parent_blog {
-  display: inline-block; /* required for column layout */
-  width: 14rem;           /* fill the column */
-  margin-bottom: 1.5rem;
+  display: inline-block;
+  /*requiredforcolumnlayout*/width: 14rem;
+  /*fillthecolumn*/margin-bottom: 1.5rem;
   border-radius: 12px;
-  border: 1px solid #e5e7eb; /* subtle border */
-  background: #fff;
+  border: 1px solid #e5e7eb;
+  /*subtleborder*/background: #fff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   padding: 1rem;
   margin-bottom: 2.3rem;
+  transition: all 0.3s ease;
+  &:hover
+  
+{
+    border: 1px solid rgb(221, 154, 45);
+    box-shadow: 0 0 20px  oklch(84.16% 0.1169 71.19);
+  transform: translateY(-5px);
+    scale: 1.03;
+  }
   
   
   

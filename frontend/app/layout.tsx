@@ -1,3 +1,4 @@
+
 import NavBar from "@/components/shared/Navbar";
 import styles from './page.module.css'
 import { Metadata } from "next";
@@ -25,11 +26,18 @@ export const metadata: Metadata = {
     description:
       "Knowledge Poll is your go-to platform for learning programming, coding concepts, and practical projects.",
   },
+  icons: {
+    icon: '/brand.png', // favicon here
+    shortcut: '/brand.png', // optional for shortcut icon
+    // apple:'/brandimg.png'
+  },
+
 }; 
 
 export default function RootLayout({children}:{children:React.ReactNode}) {
   return (
     <html lang="en">
+    
       <body>
         <header className={styles.navbar}>
            <NavBar/>

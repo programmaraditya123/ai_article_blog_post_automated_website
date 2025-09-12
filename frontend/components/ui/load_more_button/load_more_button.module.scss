@@ -1,7 +1,8 @@
 
 .btn_parent {
-  
-    margin:3rem;
+
+  margin:3rem;
+    
 
    
   background:  linear-gradient(
@@ -37,16 +38,17 @@
           #ffb741
         ) ;
     transform: translateY(-2px),scale(1.5);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 6px 20px oklch(84.16% 0.1169 71.19);
     -webkit-transform: translateY(-2px),scale(1.5);
     -moz-transform: translateY(-2px),scale(1.5);
     -ms-transform: translateY(-2px),scale(1.5);
     -o-transform: translateY(-2px),scale(1.5);
+    scale: 1.02;
 }
 
   &:active {
     transform: translateY(1px) scale(0.98);
-    box-shadow: 0 3px 10px rgba(0, 5, 16, 0.3);
+    box-shadow: 0 3px 10px oklch(25.899% 0.03347 71.208)
   }
 
   &:focus {
