@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-export const dynamic = "force-dynamic"; // ← prevents build-time execution
+export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 const uri = process.env.MONGODB_URI;
@@ -15,7 +15,6 @@ if (uri) {
 
 export async function GET() {
   const baseUrl = "https://knowledgepoll.site";
-
   let articles: any[] = [];
 
   try {
@@ -25,8 +24,6 @@ export async function GET() {
       articles = await db
         .collection("articles")
         .find({}, { projection: { title: 1 } })
-        .sort({ _id: -1 })
-        .limit(10)
         .toArray();
     }
   } catch (err) {
@@ -58,6 +55,8 @@ ${urls
 </urlset>`;
 
   return new Response(xml, {
-    headers: { "Content-Type": "application/xml" },
+    headers: {
+      "Content-Type": "application/xml",
+    },
   });
 }
