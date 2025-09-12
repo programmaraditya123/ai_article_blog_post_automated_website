@@ -57,9 +57,10 @@ const LoadIcon: React.FC<SvgIconProps> = ({ size = 24, className }) => {
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
+     
       viewBox="0 0 24 24"
     >
-      <rect x="0" y="0" width="4" height="7" fill="#333">
+      <rect x="0" y="0" width="4" height="7" fill="#f5f0f0ff">
         <animateTransform
           attributeType="xml"
           attributeName="transform"
@@ -70,7 +71,7 @@ const LoadIcon: React.FC<SvgIconProps> = ({ size = 24, className }) => {
           repeatCount="indefinite"
         />
       </rect>
-      <rect x="10" y="0" width="4" height="7" fill="#333">
+      <rect x="10" y="0" width="4" height="7" fill="#fdf0f0ff">
         <animateTransform
           attributeType="xml"
           attributeName="transform"
@@ -81,7 +82,7 @@ const LoadIcon: React.FC<SvgIconProps> = ({ size = 24, className }) => {
           repeatCount="indefinite"
         />
       </rect>
-      <rect x="20" y="0" width="4" height="7" fill="#333">
+      <rect x="20" y="0" width="4" height="7" fill="#fffcfcff">
         <animateTransform
           attributeType="xml"
           attributeName="transform"
