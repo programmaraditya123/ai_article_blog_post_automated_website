@@ -1,5 +1,7 @@
 import Link from "next/link";
 import styles from "./page.module.css";
+import LoadMoreButton from "@/components/ui/load_more_button/Load_More_Button";
+import { link } from "fs";
 
 const NotFound = ({ message }: { message?: string }) => {
   return (
@@ -13,9 +15,12 @@ const NotFound = ({ message }: { message?: string }) => {
             </p>
           }
         </div>
-        <Link href='/'>
+        {/* <Link href='/'>
         <button>Back to Home</button>
-          </Link>
+          </Link> */}
+          <Link href='/'>
+          <LoadMoreButton text="Back To Home"/>
+        </Link>
         {/* <Button
           variant="primary"
           buttonBackground={

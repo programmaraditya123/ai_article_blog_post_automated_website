@@ -20,4 +20,7 @@ Disallow: /category/
 
 # Sitemap location (very important for SEO)
 Sitemap: https://knowledgepoll.site/sitemap.xml
+Sitemap: https://knowledgepoll.site/sitemap-articles.xml
+Sitemap: https://knowledgepoll.site/sitemap-blogs.xml
+Sitemap: https://knowledgepoll.site/sitemap-posts.xml
 
