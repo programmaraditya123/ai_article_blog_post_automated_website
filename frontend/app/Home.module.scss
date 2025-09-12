@@ -23,6 +23,18 @@
 
       span {
         color: #fbbf24;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+      }
+      @media (max-width:420px) {
+        span{
+          display: flex;
+        justify-content: center;
+        align-items: center;
+          
+        }
+        
       }
     }
 

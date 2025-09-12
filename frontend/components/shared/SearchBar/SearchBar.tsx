@@ -4,7 +4,6 @@ import styles from "./SearchBar.module.scss";
 import Icons from "@/components/icons";
 import { getRecommendations } from "@/lib/api/recommendation";
 import { Recommendations } from "@/types/articles";
-import Link from "next/link";
 
 const SearchBar = () => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -65,12 +64,12 @@ const SearchBar = () => {
       {showSuggestions && (
         <ul className={styles.suggestions_list}>
           {filteredSuggestions.map((s) => (
-           <Link href={`/${s.metadata.type}s/${slugFormatter(s.metadata.title,s.metadata.id)}`}>
+           <a href={`/${s.metadata.type}s/${slugFormatter(s.metadata.title,s.metadata.id)}`} key={s.id}>
            <li key={s.id} onClick={() => setInputValue("")}>
               {s.metadata.title}
             </li>
 
-           </Link> 
+           </a> 
           ))}
         </ul>
       )}

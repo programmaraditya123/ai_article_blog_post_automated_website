@@ -5,6 +5,7 @@
   right: 0;
   z-index: 1000;
   background: white;
+  padding: 0.5rem;
 }
 .main_cont{
   padding-top: 20px;
