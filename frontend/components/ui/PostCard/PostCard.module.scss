@@ -10,12 +10,20 @@
   font-family: "Inter", sans-serif;
   cursor: pointer;
   border: 1px solid transparent;
-
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
-    border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  &:hover
+  
+{
+    border: 1px solid rgb(221, 154, 45);
+    box-shadow: 0 0 20px  oklch(84.16% 0.1169 71.19); 
+  transform: translateY(-5px);
+    scale: 1.03;
   }
+  // &:hover {
+  //   transform: translateY(-6px);
+  //   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
+  //   border: 1px solid #e5e7eb;
+  // }
 }
 
 /* Title */
