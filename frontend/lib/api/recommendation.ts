@@ -8,7 +8,7 @@ export async function getRecommendations(
     if(query) url.searchParams.set("query",query)
 
 
-    const res = await fetch(url.toString())
+    const res = await fetch(url.toString(),{cache:"no-store"})
     if(!res.ok) throw new Error("Failed to get recommendations")
 
     return res.json()

@@ -22,12 +22,12 @@ export async function GET() {
       const client = await clientPromise;
       const db = client.db();
       articles = await db
-        .collection("articles")
+        .collection("blogs")
         .find({}, { projection: { title: 1 } })
         .toArray();
     }
   } catch (err) {
-    console.error("❌ Article sitemap failed:", err);
+    console.error("❌ blogs sitemap failed:", err);
   }
 
   const slugify = (title: string) =>
@@ -38,7 +38,7 @@ export async function GET() {
       .replace(/^-+|-+$/g, "");
 
   const urls = articles.map((a) => ({
-    loc: `${baseUrl}/articles/${slugify(a.title)}-${a._id.toString()}`,
+    loc: `${baseUrl}/blogs/${slugify(a.title)}-${a._id.toString()}`,
     lastmod: new Date().toISOString(),
   }));
 
