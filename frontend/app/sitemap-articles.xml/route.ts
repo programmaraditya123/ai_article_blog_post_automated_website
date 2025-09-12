@@ -2,6 +2,10 @@ import clientPromise from "@/lib/api/mongodb";
 
 export const revalidate = 0;
 
+
+console.log("MONGODB_URI:", process.env.MONGODB_URI);
+
+
 export async function GET() {
   const baseUrl = "https://knowledgepoll.site";
 
