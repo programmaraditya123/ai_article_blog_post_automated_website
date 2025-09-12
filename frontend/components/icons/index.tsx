@@ -51,11 +51,7 @@ const ArrowRightIcon: React.FC<SvgIconProps> = ({
   </svg>
 );
 
-
-
-
-
-const LoadIcon: React.FC<SvgIconProps> = ({ size = 24 ,className}) => {
+const LoadIcon: React.FC<SvgIconProps> = ({ size = 24, className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -100,10 +96,6 @@ const LoadIcon: React.FC<SvgIconProps> = ({ size = 24 ,className}) => {
   );
 };
 
-
-
-
-
 // Inline SVG for FileText icon (top right)
 const FileTextIcon: React.FC<SvgIconProps> = ({ size = 24, ...props }) => (
   <svg
@@ -126,6 +118,61 @@ const FileTextIcon: React.FC<SvgIconProps> = ({ size = 24, ...props }) => (
   </svg>
 );
 
-const Icons = { DatabaseIcon, ArrowRightIcon, FileTextIcon,LoadIcon };
+const SearchIcon: React.FC<SvgIconProps> = ({ size = 24, ...props }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+    <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
+    <g id="SVGRepo_iconCarrier">
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19C12.8487 19 14.551 18.3729 15.9056 17.3199L19.2929 20.7071C19.6834 21.0976 20.3166 21.0976 20.7071 20.7071C21.0976 20.3166 21.0976 19.6834 20.7071 19.2929L17.3199 15.9056C18.3729 14.551 19 12.8487 19 11C19 6.58172 15.4183 3 11 3ZM5 11C5 7.68629 7.68629 5 11 5C14.3137 5 17 7.68629 17 11C17 14.3137 14.3137 17 11 17C7.68629 17 5 14.3137 5 11Z"
+        fill="#152C70"
+      />
+    </g>
+  </svg>
+);
+
+const CrossIcon: React.FC<SvgIconProps> = ({ size = 24, ...props }) => (
+  <svg
+    width="64px"
+    height="64px"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+    <g
+      id="SVGRepo_tracerCarrier"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    ></g>
+    <g id="SVGRepo_iconCarrier">
+      {" "}
+      <path
+        d="M20 20L4 4.00003M20 4L4.00002 20"
+        stroke="#000000"
+        stroke-width="2"
+        stroke-linecap="round"
+      ></path>{" "}
+    </g>
+  </svg>
+);
+
+const Icons = {
+  DatabaseIcon,
+  ArrowRightIcon,
+  FileTextIcon,
+  LoadIcon,
+  SearchIcon,
+  CrossIcon,
+};
 
 export default Icons;

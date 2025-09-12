@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./Navbar.module.scss";
+import SearchBar from "./SearchBar/SearchBar";
 
 const menuItems = ["articles", "blogs", "posts", "pricing", "docs"];
 
@@ -35,10 +36,11 @@ const NavBar = () => {
       </div>
 
       {/* Auth Buttons */}
-      <div className={styles.navbar_btns}>
+      {/* <div className={styles.navbar_btns}>
         <button type="button" className={styles.user_btns}>Login</button>
         <button type="button" className={styles.user_btns}>Register</button>
-      </div>
+      </div> */}
+      <SearchBar/>
     </nav>
   );
 };
