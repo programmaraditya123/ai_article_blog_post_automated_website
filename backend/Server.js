@@ -9,6 +9,7 @@ const { connectdb } = require('./config/db');
 const ArticleRoute = require('./modules/article/Routes/ArticleRoute')
 const blogRoute = require('./modules/blogs/Routes/blogRoute')
 const postRoute = require("./modules/posts/Routes/postRoute")
+const ArticleBlogPostRoute = require('./modules/home/Routes/ArticleBlogPostRoute')
 const cors = require('cors')
 require('dotenv').config()
 
@@ -28,9 +29,8 @@ const allowedOrigins = [
 
 
 const app = express();
-const app1 = express();
 app.use(express.json())
-app1.use(express.json())
+
 
 app.use(cors({ origin: "*" }));
 
@@ -60,11 +60,10 @@ app.use('/app/getblog',blogRoute)
 //post route
 app.use("/app/getpost",postRoute)
 
-const PORT = process.env.PORT || 8080;
+//getArtcileBlogPost route
+app.use('/app',ArticleBlogPostRoute)
 
-app.listen(PORT,() => {
-     console.log("Server.js is runing on PORT 8080")
-})
+
 
 
 
@@ -77,8 +76,12 @@ createBullBoard({
     serverAdapter:serverAdapter,
 })
 
-app1.use('/admin/queues',serverAdapter.getRouter());
+app.use('/admin/queues',serverAdapter.getRouter());
 
-app1.listen(3000,() => {
-    console.log("Bull board is runing on http://localhost:3000/admin/queues")
+
+
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT,() => {
+     console.log("Server.js and bullmq is  runing on PORT 8080")
 })
