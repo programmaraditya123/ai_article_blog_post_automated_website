@@ -16,7 +16,7 @@ type PageProps = {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params; // ✅ No await here
   return {
-    title: `Article - ${slug}`,
+    title: `learn Article for exploring the world- ${slug}`,
     description: `Details about article ${slug}`,
   };
 }
