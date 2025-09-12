@@ -3,7 +3,7 @@ import clientPromise from "@/lib/api/mongodb";
 
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
-export const runtime = "nodejs"; // force Node.js runtime
+export const runtime = "nodejs";
 
 export async function GET() {
   const baseUrl = "https://knowledgepoll.site";
@@ -21,14 +21,14 @@ export async function GET() {
     const client = await clientPromise;
     const db = client.db("ArticleBlogPosts");
 
-    // Fetch documents
+    // fetch latest 10 from each collection
     const [articles, blogs, posts] = await Promise.all([
-      db.collection("articles").find({}, { projection: { title: 1 } }).toArray(),
-      db.collection("blogs").find({}, { projection: { title: 1 } }).toArray(),
-      db.collection("posts").find({}, { projection: { title: 1 } }).toArray(),
+      db.collection("articles").find({}, { projection: { title: 1 } }).sort({ _id: -1 }).limit(10).toArray(),
+      db.collection("blogs").find({}, { projection: { title: 1 } }).sort({ _id: -1 }).limit(10).toArray(),
+      db.collection("posts").find({}, { projection: { title: 1 } }).sort({ _id: -1 }).limit(10).toArray(),
     ]);
 
-    // Add collectionName manually
+    // helper to attach collectionName
     const withCollection = (docs: any[], name: string) =>
       docs.map((doc) => ({ ...doc, collectionName: name }));
 
@@ -38,7 +38,7 @@ export async function GET() {
       ...withCollection(posts, "posts"),
     ];
 
-    // Slugify function
+    // slugify function
     const slugify = (title: string) =>
       (title ?? "untitled")
         .toString()
@@ -46,16 +46,17 @@ export async function GET() {
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "");
 
-    // Build dynamic URLs
-    const dynamicUrls = combinedDocs.map((item) => {
-      const id = item?._id?.toString?.() ?? "";
-      const slug = slugify(item?.title);
-
-      return {
-        loc: `${baseUrl}/${item.collectionName}/${slug}-${id}`,
-        lastmod: new Date().toISOString(),
-      };
-    });
+    // build dynamic URLs safely
+    const dynamicUrls = combinedDocs
+      .filter((item) => item?.title && item?._id) // prevent invalid docs
+      .map((item) => {
+        const id = item._id.toString();
+        const slug = slugify(item.title);
+        return {
+          loc: `${baseUrl}/${item.collectionName}/${slug}-${id}`,
+          lastmod: new Date().toISOString(),
+        };
+      });
 
     const urls = [...staticUrls, ...dynamicUrls];
 
@@ -78,7 +79,7 @@ export async function GET() {
   } catch (err) {
     console.error("Sitemap generation failed:", err);
 
-    // Fallback to static sitemap
+    // fallback to static sitemap
     const fallbackXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   ${staticUrls
@@ -96,6 +97,7 @@ export async function GET() {
     });
   }
 }
+
 
 
 
