@@ -28,8 +28,8 @@ export default async function BlogPage({ params }: PageProps) {
 
   return (
     <div className={style.art_parent_cont}>
-      <div className={style.article_container}>
-        
+      <div className={style.article_container}>  
+      
         {/* Blog Title */}
         <div className={style.article_title}>
           <h1 className={style.article_title_h}>{blog.title}</h1>
