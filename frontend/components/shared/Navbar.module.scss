@@ -5,6 +5,7 @@
   align-items: center;
   margin: 0.5rem 0.5rem 0.25rem 0.5rem;
   gap: 1rem;
+  
 }
 
 .navbar_logo{
@@ -104,6 +105,7 @@
   display: none;
 }
 .vertical_nav_links{
+ 
   font-size: 1.2rem;
   list-style: none;
 }
@@ -117,13 +119,23 @@
   margin-block-end: 0.5rem;
 }
 .vertical_navbar_list{
+  display: block;
+   &:hover{
+    background-color: white;
+    border-radius: 1rem;
+    border: 1px solid black;
+    scale: 1.02;
+    box-shadow: 0 0 20px  oklch(84.16% 0.1169 71.19);
+    -webkit-border-radius: 1rem;
+    -moz-border-radius: 1rem;
+    -ms-border-radius: 1rem;
+    -o-border-radius: 1rem;
+}
   padding: 0.5rem;
   text-transform: capitalize;
+  
 }
-.vertical_navbar_list:hover{
-  background-color: grey;
-  border-radius: 2rem;
-}
+
 
 @media screen and (max-width: 81.25rem) {
   .navbar_links {
@@ -156,8 +168,8 @@
     gap: 0.5rem;
 
   }
-  // .vertical_nav{
-  //   display: block;
-  // }
+  .vertical_nav{
+    display: block;
+  }
   
 }
