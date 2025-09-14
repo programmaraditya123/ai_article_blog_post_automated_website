@@ -8,7 +8,9 @@ async function clearCompletedJobs() {
   try {
     // Clear jobs that are "completed"
     const jobs = await articleTitleQueue.clean(0, 1000, 'completed');
+    const fjobs = await articleTitleQueue.clean(0, 1000, 'failed');
     console.log(`🗑 Cleared ${jobs.length} completed jobs`);
+    console.log(`🗑 Cleared ${fjobs.length} failed jobs`);
 
     // (Optional) also clear "failed" jobs if you want
     // const failedJobs = await articleTitleQueue.clean(0, 1000, 'failed');

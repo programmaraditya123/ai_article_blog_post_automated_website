@@ -12,7 +12,7 @@ const worker = new Worker('article-titles', async (job) => {
     try {
         const response = await axios.post(`${BASE_PYTHON_URL}/generateArticle`, job.data)
         console.log(`Job ${job} processed by python microservice`)
-        return response.data
+        // return response.data
     } catch (error) {
         if (error.response) {
             console.error("Microservice error:", error.response.status, error.response.data);
@@ -22,14 +22,14 @@ const worker = new Worker('article-titles', async (job) => {
         throw error;
     }
 
-}, { connection })
+}, { connection})
 
 
 
 //add event listeners for the bullmq
 
 worker.on("completed", (job, result) => {
-    console.log(`Job ${job} completed with result:`, result)
+    console.log(`Job ${job} completed with result:`)
 })
 
 worker.on("failed", (job, err) => {
