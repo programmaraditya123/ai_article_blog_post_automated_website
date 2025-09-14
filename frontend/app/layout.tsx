@@ -2,6 +2,7 @@
 import NavBar from "@/components/shared/Navbar";
 import styles from './page.module.css'
 import { Metadata } from "next";
+import Footer from "@/components/shared/Footer/Footer";
  
 export const metadata: Metadata = {
   title: {
@@ -46,6 +47,9 @@ export default function RootLayout({children}:{children:React.ReactNode}) {
          
         <div className={styles.main_cont}>
           <main>{children}</main>
+        </div>
+        <div>
+          <Footer/>
         </div>
       </body>
     </html>
