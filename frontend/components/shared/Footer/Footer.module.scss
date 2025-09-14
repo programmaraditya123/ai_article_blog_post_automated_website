@@ -1,0 +1,146 @@
+.footer {
+  background: #0f172a; // deep navy
+  color: #e2e8f0;
+  padding: 3rem 1.5rem 1rem;
+  font-family: "Inter", sans-serif;
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+  }
+
+  .brand {
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1rem;
+      span {
+        color: #3b82f6; // blue accent
+      }
+    }
+
+    p {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: #94a3b8;
+    }
+  }
+
+  .heading {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 1rem;
+    position: relative;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 2px;
+      background: #3b82f6;
+      margin-top: 0.3rem;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 0.6rem;
+
+      a {
+        text-decoration: none;
+        color: #cbd5e1;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    input {
+      padding: 0.7rem 1rem;
+      border-radius: 6px;
+      border: 1px solid #334155;
+      background: #1e293b;
+      color: #f8fafc;
+      font-size: 0.9rem;
+      outline: none;
+
+      &:focus {
+        border-color: #3b82f6;
+      }
+    }
+
+    button {
+      padding: 0.7rem 1rem;
+      border-radius: 6px;
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: #3b82f6;
+      color: #fff;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background: #2563eb;
+      }
+    }
+  }
+
+  .success {
+    font-size: 0.9rem;
+    color: #22c55e;
+  }
+
+  .bottom {
+    border-top: 1px solid #1e293b;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    @media (min-width: 640px) {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    p {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .socials {
+      display: flex;
+      gap: 1.5rem;
+
+      a {
+        font-size: 0.9rem;
+        color: #cbd5e1;
+        text-decoration: none;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #3b82f6;
+        }
+      }
+    }
+  }
+}
