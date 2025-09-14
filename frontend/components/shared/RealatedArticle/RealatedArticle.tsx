@@ -36,7 +36,7 @@ export default function RelatedArticles({ articles }: Props) {
 
   return (
     <div className={styles.relatedContainer}>
-      <h2 className={styles.heading}>Related Content</h2>
+      {/* <h2 className={styles.heading}>Related Content</h2> */}
       <div className={styles.grid}>
         {articles.map((article) => (
           <Link
@@ -47,11 +47,11 @@ export default function RelatedArticles({ articles }: Props) {
             <div className={styles.cardContent}>
               <span className={styles.type}>{article.metadata.type}</span>
               <h3 className={styles.title}>{article.metadata.title}</h3>
-              <p className={styles.excerpt}>
+              {/* <p className={styles.excerpt}>
                 {article.page_content.length > 100
                   ? article.page_content.slice(0, 100) + "..."
                   : article.page_content}
-              </p>
+              </p> */}
               <span className={styles.readMore}>Read More →</span>
             </div>
           </Link>

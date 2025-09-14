@@ -2,8 +2,35 @@
 
 import Link from "next/link";
 import styles from './Home.module.scss';
+import { fetchArticleBlogPost } from "@/lib/api/global";
+import { useEffect, useState } from "react";
+import { Articles, Blogs, Posts } from "@/types/articles";
 
 export default function page() {
+  const[articles,setArticles] = useState<Articles[]>([]);
+  const[blogs,setBlogs] = useState<Blogs[]>([]);
+  const[posts,setPosts] = useState<Posts[]>([]);
+  // console.log("*****************",articles)
+
+  
+  const slugFormatter = (title: string, id: string) => {
+    const ftitle = title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+    return `${ftitle}-${id}`;
+  };
+  
+    useEffect(() => {
+    async function getData() {
+      const data = await fetchArticleBlogPost();
+      // console.log("-----------", data);
+      setArticles(data?.articles || [])
+      setBlogs(data?.blogs || [])
+      setPosts(data?.posts || posts)
+    }
+    getData();
+  }, []);
   return (
     <div className={styles.homepage}>
       {/* Hero Section */}
@@ -45,11 +72,59 @@ export default function page() {
           </Link>
 
           <Link href="/posts" className={styles.card}>
-            <h3>🏷️ Titles</h3>
+            <h3>🏷️ Posts</h3>
             <p>Catchy, engaging posts that spark curiosity and learning.</p>
           </Link>
         </div>
       </section>
+
+
+      <section className={styles.featured}>
+        <h2 className={styles.sectionTitle}>Articles</h2>
+           <div className={styles.featuredGrid}>
+        {articles && articles.map((data,index) => {
+          return (
+          <div className={styles.featuredCard} key={data._id}>
+            <h4>{data.title}</h4>
+            <p className={styles.intro}>{data.introduction}</p>
+            <Link href={`/articles/${slugFormatter(data.title,data._id)}`}>Read Article →</Link>
+          </div>)
+
+        })}
+        </div>
+      </section>
+
+      <section className={styles.featured}>
+        <h2 className={styles.sectionTitle}>Blogs</h2>
+           <div className={styles.featuredGrid}>
+        {blogs && blogs.map((data,index) => {
+          return (
+          <div className={styles.featuredCard} key={data._id}>
+            <h4>{data.title}</h4>
+            <p className={styles.intro}>{data.introduction}</p>
+            <Link href={`/blogs/${slugFormatter(data.title,data._id)}`}>Read Blogs →</Link>
+          </div>)
+
+        })}
+        </div>
+      </section>
+
+      <section className={styles.featured}>
+        <h2 className={styles.sectionTitle}>Posts</h2>
+           <div className={styles.featuredGrid}>
+        {posts && posts.map((data,index) => {
+          return (
+          <div className={styles.featuredCard} key={data._id}>
+            <h4>{data.title}</h4>
+            <p className={styles.intro}>{data.body}</p>
+            <Link href={`/posts/${slugFormatter(data.title,data._id)}`}>Read Posts →</Link>
+          </div>)
+
+        })}
+        </div>
+      </section>
+
+
 
       {/* Featured Section */}
       <section className={styles.featured}>

@@ -61,35 +61,55 @@
 }
 
 /* Sidebar */
+// .related_article_container {
+//   background: #f9fafb;
+//   border-radius: 12px;
+//   padding: 0.5rem;
+//   box-shadow: inset 0 0 0 1px #e2e8f0;
+
+//   h3 {
+//     font-size: 1.2rem;
+//     font-weight: 600;
+//     margin-bottom: 1rem;
+//     color: #1e293b;
+//   }
+
+//   ul {
+//     list-style: none;
+//     padding: 0;
+
+//     li {
+//       margin-bottom: 0.75rem;
+//       a {
+//         text-decoration: none;
+//         color: #475569;
+//         font-weight: 500;
+//         transition: color 0.2s ease;
+
+//         &:hover {
+//           color: #6366f1;
+//         }
+//       }
+//     }
+//   }
+// }
+
 .related_article_container {
-  background: #f9fafb;
-  border-radius: 12px;
+  flex: 1;
+  background: #fff;
   padding: 0.5rem;
-  box-shadow: inset 0 0 0 1px #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
 
-  h3 {
-    font-size: 1.2rem;
+  &::before {
+    content: "📚 Related Content";
+    display: block;
     font-weight: 600;
+    font-size: 1.2rem;
     margin-bottom: 1rem;
-    color: #1e293b;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-
-    li {
-      margin-bottom: 0.75rem;
-      a {
-        text-decoration: none;
-        color: #475569;
-        font-weight: 500;
-        transition: color 0.2s ease;
-
-        &:hover {
-          color: #6366f1;
-        }
-      }
-    }
+    color: #1f2937;
   }
 }
