@@ -1,78 +1,41 @@
-"use client";
-import PostCard from '@/components/ui/PostCard/PostCard';
-import React, { useCallback, useEffect, useState } from 'react';
-import style from '../page.module.css';
-import { fetchPosts } from '@/lib/api/posts';
-import { Posts } from '@/types/articles';
-import LoadMoreButton from '@/components/ui/load_more_button/Load_More_Button';
-import Icons from '@/components/icons';
+// app/posts/page.tsx (Server Component)
+import type { Metadata } from "next";
+import ClientPagePost from "./ClientPagePost";
 
-const Page = () => {
-  const [posts, setPosts] = useState<Posts[]>([]);
-  const [lastId, setLastId] = useState<string | undefined>(undefined);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const loadPosts = useCallback( async (reset = false) => {
-    if (!hasMore && !reset) return;
-    if (isLoading) return; // prevent multiple rapid calls
-
-    setIsLoading(true);
-    try {
-      const response = await fetchPosts(reset ? undefined : lastId);
-
-      setPosts((prev) => {
-        const merged = reset ? response.posts : [...prev, ...response.posts];
-        // remove duplicates by _id
-        const unique = Array.from(new Map(merged.map((p) => [p._id, p])).values());
-        return unique;
-      });
-
-      setLastId(response.lastId);
-      setHasMore(response.hasMore);
-    } catch (error) {
-      console.error("Failed to load posts", error);
-    } finally {
-      setIsLoading(false);
-    }
-  },[hasMore, isLoading, lastId]);
-
-  const slugFormatter = (title: string, id: string) => {
-    return (
-      title
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-+|-+$/g, "") +
-      "-" +
-      id
-    );
-  };
-
-  useEffect(() => {
-    // Reset posts on mount
-    setPosts([]);
-    setLastId(undefined);
-    setHasMore(true);
-    loadPosts(true);
-  },[]);
-
-  return (
-    <>
-      <div className={style.post_grid}>
-        {posts.map((item) => (
-          <PostCard
-            title={item.title}
-            key={item._id}
-            link={`/posts/${slugFormatter(item.title, item._id)}`}
-          />
-        ))}
-      </div>
-
-       <div className={style.btnCenter}>
-      {hasMore && !isLoading && <LoadMoreButton onClick={() => loadPosts()} text='Read More Post'/>}
-      {isLoading && <LoadMoreButton   Icon={Icons.LoadIcon}/>}</div>
-    </>
-  );
+export const metadata: Metadata = {
+  title: "Latest Blog Posts | KnowledgePoll",
+  description:
+    "Explore the latest blog posts on KnowledgePoll covering tutorials, problem-solving strategies, web development, AI, and exam preparation.",
+  alternates: {
+    canonical: "https://knowledgepoll.site/posts",
+  },
+  openGraph: {
+    title: "KnowledgePoll – Latest Blog Posts",
+    description:
+      "Browse tutorials, case studies, and practical insights on development, AI, and competitive learning.",
+    url: "https://knowledgepoll.site/posts",
+    images: [
+      {
+        url: "https://knowledgepoll.site/brand.png",
+        width: 1200,
+        height: 630,
+        alt: "KnowledgePoll Blog",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Latest Blog Posts | KnowledgePoll",
+    description:
+      "Stay updated with KnowledgePoll: tutorials, problem-solving, AI insights, and exam prep content.",
+    images: ["https://knowledgepoll.site/brand.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
-export default Page;
+export default function PostsPage() {
+  return <ClientPagePost />;
+}

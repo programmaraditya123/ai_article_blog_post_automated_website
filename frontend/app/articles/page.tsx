@@ -1,90 +1,62 @@
-"use client";
-import Icons from '@/components/icons';
-import ArticleCard from '@/components/ui/ArticleCard/ArticleCard';
-import { fetchArticles } from '@/lib/api/articles';
-import { ArticleCardProps, Articles } from '@/types/articles';
-import React, { useCallback, useEffect, useState } from 'react';
-import style from '../page.module.css';
-import LoadMoreButton from '@/components/ui/load_more_button/Load_More_Button';
+// app/articles/page.tsx (Server Component)
+import type { Metadata } from "next";
+import ClientPageArticle from "./ClientPageArticle";
 
-const data: ArticleCardProps = {
-  icon: Icons.DatabaseIcon,
-  primaryButtonText: 'Start learning: A Guide',
-  primaryButtonColor: 'blue',
-  title: 'Mastering Automation: A Guide',
+export const metadata: Metadata = {
+  title: "KnowledgePoll Article – Tutorials, Web Dev, AI, Exam Prep & Insights",
   description:
-    'This immersive introduction helps savvy learners, researchers and innovators to leverage artificial intelligence for various tasks such as machine learning and data analysis. Explore how to harness the power of AI to streamline your workflows and gain valuable insights.',
-  link: '#',
-  secondaryButtonText: 'Read More',
+    "Discover high-quality tutorials, web development guides, AI insights, coding solutions, and competitive exam preparation blogs on KnowledgePoll. Updated regularly with fresh, practical content.",
+  keywords: [
+    "KnowledgePoll Article",
+    "web development tutorials",
+    "AI learning Article",
+    "competitive exam preparation articles",
+    "problem solving strategies",
+    "latest coding guides",
+    "technology insights",
+  ],
+  alternates: {
+    canonical: "https://knowledgepoll.site/articles",
+  },
+  openGraph: {
+    title: "KnowledgePoll Article – Web Dev, AI & Exam Prep Insights",
+    description:
+      "Read tutorials, coding tips, AI case studies, and exam strategies on KnowledgePoll. Actionable insights for students, developers, and lifelong learners.",
+    url: "https://knowledgepoll.site/articles",
+    siteName: "KnowledgePoll",
+    images: [
+      {
+        url: "https://knowledgepoll.site/brand.png",
+        width: 1200,
+        height: 630,
+        alt: "KnowledgePoll Article – Tutorials, AI, Web Development, Exam Prep",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@KnowledgePoll",
+    creator: "@KnowledgePoll",
+    title: "KnowledgePoll Article – Tutorials, Coding, AI & Exam Prep",
+    description:
+      "Stay ahead with KnowledgePoll blogs: tutorials, web dev, AI insights, problem-solving, and exam preparation strategies.",
+    images: ["https://knowledgepoll.site/brand.png"],
+  },
+  robots: {
+    index: true,
+    follow: true 
+  },
+  verification: {
+    google: "YOUR-GOOGLE-SEARCH-CONSOLE-CODE",
+    other: {
+      bing: "YOUR-BING-VERIFICATION-CODE",
+    },
+  },
+  category: "Article",
 };
 
-const Page = () => {
-  const [articles, setArticles] = useState<Articles[]>([]);
-  const [lastId, setLastId] = useState<string | undefined>(undefined);
-  const [hasMore, setHasMore] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const loadArticles = useCallback( async (reset = false) => {
-    if (!hasMore && !reset) return;
-    if (isLoading) return;
-
-    setIsLoading(true);
-    try {
-      const response = await fetchArticles(reset ? undefined : lastId);
-
-      setArticles((prev) => {
-        const merged = reset ? response.articles : [...prev, ...response.articles];
-        // 🔹 remove duplicates by _id
-        const unique = Array.from(new Map(merged.map((a) => [a._id, a])).values());
-        return unique;
-      });
-
-      setLastId(response.lastId);
-      setHasMore(response.hasMore);
-    } catch (err) {
-      console.error("Failed to fetch articles", err);
-    } finally {
-      setIsLoading(false);
-    }
-  },[hasMore, isLoading, lastId]);
-
-  const slugFormatter = (title: string, id: string) => {
-    const ftitle = title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-+|-+$/g, "");
-    return `${ftitle}-${id}`;
-  };
-
-  useEffect(() => {
-    // reset when component mounts
-    setArticles([]);
-    setLastId(undefined);
-    setHasMore(true);
-    loadArticles(true);
-  }, []);
-
-  return (
-    <>
-      <div className={style.article_card_grid}>
-        {articles.map((item) => (
-          <ArticleCard
-            {...data}
-            title={item.title}
-            description={item.introduction}
-            key={item._id}
-            link={`/articles/${slugFormatter(item.title, item._id)}`}
-          />
-        ))}
-      </div >
-
-      {/* {hasMore && !isLoading && <button onClick={() => loadArticles()}>Load More</button>} */}
-      <div className={style.btnCenter}>
-      {hasMore && !isLoading && <LoadMoreButton  onClick={() =>loadArticles()} text='Read More Articles'/>}
-    
-      {isLoading && <LoadMoreButton  Icon={Icons.LoadIcon}/>}</div>
-    </>
-  );
-};
-
-export default Page;
+export default function ArticlePage() {
+  return <ClientPageArticle />;
+}
