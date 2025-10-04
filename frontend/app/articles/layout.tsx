@@ -1,7 +1,7 @@
 // app/articles/layout.tsx
 import React from "react";
 import type { Metadata } from "next";
-import Script from "next/script";
+// import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Articles on Programming, AI & Development | Knowledge Poll",
@@ -60,20 +60,20 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
+    <>
+      {/* <head>
         {/* ✅ Use Next.js Script instead of raw <script> */}
-        <Script
+        {/* <Script
           id="adsense-script"
           async
           strategy="afterInteractive"
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4617056155363384"
           crossOrigin="anonymous"
-        />
-      </head>
-      <body>
+        /> */}
+      {/* </head> */} */
+      
         {children}
-      </body>
-    </html>
+      
+    </>
   );
 }

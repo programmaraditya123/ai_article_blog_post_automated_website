@@ -3,6 +3,7 @@ import NavBar from "@/components/shared/Navbar";
 import styles from './page.module.css'
 import { Metadata } from "next";
 import Footer from "@/components/shared/Footer/Footer";
+import Script from "next/script";
  
 
 export const metadata: Metadata = {
@@ -82,6 +83,16 @@ export const metadata: Metadata = {
 export default function RootLayout({children}:{children:React.ReactNode}) {
   return (
     <html lang="en">
+       <head>
+        {/* ✅ Use Next.js Script instead of raw <script> */}
+        <Script
+          id="adsense-script"
+          async
+          strategy="afterInteractive"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4617056155363384"
+          crossOrigin="anonymous"
+        />
+      </head>
     
       <body>
         <header className={styles.navbar}>
