@@ -92,6 +92,7 @@ export default function RootLayout({children}:{children:React.ReactNode}) {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4617056155363384"
           crossOrigin="anonymous"
         />
+        <Script src="https://fpyf8.com/88/tag.min.js" data-zone="176643" async data-cfasync="false"></Script>
       </head>
     
       <body>
