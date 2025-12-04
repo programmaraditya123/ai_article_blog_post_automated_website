@@ -3,9 +3,10 @@ import Icons from '@/components/icons';
 import ArticleCard from '@/components/ui/ArticleCard/ArticleCard';
 import { fetchArticles } from '@/lib/api/articles';
 import { ArticleCardProps, Articles } from '@/types/articles';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect,  useState } from 'react';
 import style from '../page.module.css';
 import LoadMoreButton from '@/components/ui/load_more_button/Load_More_Button';
+// import { usePrintPdf } from '@/hooks/usePrintPdf';
 
 const data: ArticleCardProps = {
   icon: Icons.DatabaseIcon,
@@ -23,6 +24,8 @@ const ClientPageArticle = () => {
   const [lastId, setLastId] = useState<string | undefined>(undefined);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState(false);
+  
+
 
   const loadArticles = useCallback( async (reset = false) => {
     if (!hasMore && !reset) return;

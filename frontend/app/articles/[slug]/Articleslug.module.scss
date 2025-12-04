@@ -197,4 +197,24 @@
   }
 }
 
+.pdfdownloadbtn{
+  margin-bottom: 12px;
+  margin-top: -30px;
+  margin-left: 2.2rem;
+  // border-radius: 2rem;
+  
+
+}
+.pdfbtn{
+  background-color: green;
+  font-size: 1.2rem;
+  padding: 0.9rem;
+  border-radius: 1.2rem;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 

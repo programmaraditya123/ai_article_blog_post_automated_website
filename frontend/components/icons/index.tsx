@@ -194,6 +194,34 @@ const BarsIcon: React.FC<SvgIconProps> = ({ size = 24, ...props }) => (
   </svg>
 );
 
+
+
+const DownloadIcon: React.FC<SvgIconProps> = ({ size = 24, ...props }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M3 15c0 2.828 0 4.243.879 5.121C4.757 21 6.172 21 9 21h6c2.828 0 4.243 0 5.121-.879C21 19.243 21 17.828 21 15"
+      stroke="#1C274C"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M12 3v13m0 0L16 11.625M12 16L8 11.625"
+      stroke="#1C274C"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 const Icons = {
   DatabaseIcon,
   ArrowRightIcon,
@@ -202,6 +230,7 @@ const Icons = {
   SearchIcon,
   CrossIcon,
   BarsIcon,
+  DownloadIcon
 };
 
 export default Icons;
