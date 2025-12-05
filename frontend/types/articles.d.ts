@@ -100,4 +100,4 @@ interface RecommendItem {
   type: "Document";
 }
 
-type Recommendations = RecommendItem[];
+export type Recommendations = RecommendItem[];

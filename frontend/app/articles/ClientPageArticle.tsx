@@ -6,7 +6,6 @@ import { ArticleCardProps, Articles } from '@/types/articles';
 import React, { useCallback, useEffect,  useState } from 'react';
 import style from '../page.module.css';
 import LoadMoreButton from '@/components/ui/load_more_button/Load_More_Button';
-// import { usePrintPdf } from '@/hooks/usePrintPdf';
 
 const data: ArticleCardProps = {
   icon: Icons.DatabaseIcon,
@@ -37,7 +36,6 @@ const ClientPageArticle = () => {
 
       setArticles((prev) => {
         const merged = reset ? response.articles : [...prev, ...response.articles];
-        // 🔹 remove duplicates by _id
         const unique = Array.from(new Map(merged.map((a) => [a._id, a])).values());
         return unique;
       });
@@ -81,7 +79,6 @@ const ClientPageArticle = () => {
         ))}
       </div >
 
-      {/* {hasMore && !isLoading && <button onClick={() => loadArticles()}>Load More</button>} */}
       <div className={style.btnCenter}>
       {hasMore && !isLoading && <LoadMoreButton  onClick={() =>loadArticles()} text='Read More Articles'/>}
     

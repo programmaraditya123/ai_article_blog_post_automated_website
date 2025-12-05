@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import { getRecommendations } from '@/lib/api/recommendation';
 import RelatedArticles from '@/components/shared/RealatedArticle/RealatedArticle';
 import Script from "next/script";
+import PostClient from '@/components/posts/PostClient';
 
 type PageProps = {
   params: Promise<{
@@ -65,26 +66,9 @@ export default async function PostPage({ params }: PageProps) {
 
 
   return (
-    <div className={style.art_parent_cont}>
-      <div className={style.article_container}>
-
-        {/* Post Title */}
-        <div className={style.article_title}>
-          <h1 className={style.article_title_h}>{post.title}</h1>
-        </div>
-
-        {/* Introduction */}
-        <div className={style.article_intro}>
-          <h2 className={style.section_heading}>Introduction</h2>
-          <p className={style.article_intro_p}>{post.body}</p>
-        </div>
-
-      </div>
-
-      {/* Related Articles Sidebar */}
-      <div className={style.related_article_container}>
-        <RelatedArticles articles={recommendation || []} />
-      </div>
+    <>
+    <PostClient post={post} recommendation={recommendation}/>
+    
 
 
       <Script
@@ -119,6 +103,7 @@ export default async function PostPage({ params }: PageProps) {
         }}
       />
 
-    </div>
+    {/* </div> */}
+    </>
   );
 }

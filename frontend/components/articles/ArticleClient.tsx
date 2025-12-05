@@ -1,4 +1,3 @@
-// components/ArticleClient.tsx (use this exact file while debugging)
 'use client'
 import React, { useEffect, useRef, useState } from 'react'
 import style from '../../app/articles/[slug]/Articleslug.module.scss'
@@ -135,11 +134,6 @@ export default function ArticleClient({ article, recommendation }: Props) {
           </div>
         </div>
 
-      {/* <div style={{ marginTop: 12 }}>
-        <button onClick={() => mounted && handlePrint()} disabled={!mounted || isPrinting}>
-          {isPrinting ? 'Preparing...' : 'Download PDF'}
-        </button>
-      </div> */}
 
       <div className={style.related_article_container}>
         {mounted ? <RelatedArticles articles={recommendation || []} /> : null}
@@ -156,7 +150,3 @@ export default function ArticleClient({ article, recommendation }: Props) {
 
   )
 }
-
-
-
-

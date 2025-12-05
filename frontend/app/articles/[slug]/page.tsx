@@ -3,6 +3,7 @@ import React from 'react'
 import { Metadata } from "next";
 import { getRecommendations } from '@/lib/api/recommendation';
 import ArticleClient from '@/components/articles/ArticleClient';
+import Script from 'next/script';
 
 
 
@@ -71,47 +72,48 @@ export default async function ArticlePage({ params }: PageProps) {
   const decodedSlug = decodeURIComponent(slug);
   const article = await getArticle(decodedSlug);
 
-  // const pdfRef = useRef<HTMLDivElement>(null);
-  // const {handlePrint,isPrinting} = usePrintPdf(pdfRef)
  
   const recommendation =await  getRecommendations(slug)
 
   return (
+    <>
+    
     <ArticleClient article={article} recommendation={recommendation}/>
+     <Script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: article.title,
+            description: article.introduction,
+            image: [article.coverImage],
+            author: {
+              "@type": "Organization",
+              name: "Knowledge Poll",
+              url: "https://knowledgepoll.site",
+            },
+            publisher: {
+              "@type": "Organization",
+              name: "Knowledge Poll",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://knowledgepoll.site/brand.png",
+              },
+            },
+            datePublished: article.publishedAt,
+            dateModified: article.updatedAt,
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `https://knowledgepoll.site/articles/${slugFormatter(article.title,article._id)}`,
+            },
+          }),
+        }}
+      />
+
+    </>
   )
+}
 
   
-  //     <script
-  //       type="application/ld+json"
-  //       dangerouslySetInnerHTML={{
-  //         __html: JSON.stringify({
-  //           "@context": "https://schema.org",
-  //           "@type": "Article",
-  //           headline: article.title,
-  //           description: article.introduction,
-  //           image: [article.coverImage],
-  //           author: {
-  //             "@type": "Organization",
-  //             name: "Knowledge Poll",
-  //             url: "https://knowledgepoll.site",
-  //           },
-  //           publisher: {
-  //             "@type": "Organization",
-  //             name: "Knowledge Poll",
-  //             logo: {
-  //               "@type": "ImageObject",
-  //               url: "https://knowledgepoll.site/brand.png",
-  //             },
-  //           },
-  //           datePublished: article.publishedAt,
-  //           dateModified: article.updatedAt,
-  //           mainEntityOfPage: {
-  //             "@type": "WebPage",
-  //             "@id": `https://knowledgepoll.site/articles/${slugFormatter(article.title,article._id)}`,
-  //           },
-  //         }),
-  //       }}
-  //     />
-  //   </>
-  // );
-}
+   
